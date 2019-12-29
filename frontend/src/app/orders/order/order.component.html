@@ -2,22 +2,23 @@
   <input type="hidden" name="orderid" #orderid="ngModel" [(ngModel)]="orderService.formData.orderid">
   <div class="row">
     <div class="col-md-6">
+      
       <div class="form-group">
         <label>Order No.</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <div class="input-group-text">#</div>
           </div>
-          <input name="orderno" #orderno="ngModel" [(ngmodel)]="orderService.formData.orderno" class="forn-control" readonly>
+          <input name="orderno" #orderno="ngModel" [(ngModel)]="orderService.formData.orderno" class="form-control" readonly>
         </div>
       </div>
 
       <div class="form-group">
         <label>Customer</label>
-        <select name="customeriD" #customeriD="ngModel" [(ngModel)]="orderService.formData.customeriD" class="form-control"
-        [class.is-invalid]="!isValid && orderService.formData.customeriD==0">
-          <option value="0">-Select-</option>
-          <option *ngFor="let item of customerList" value="{{item.customeriD}}">{{item.name}}</option>
+        <select name="customerid" #customerid="ngModel" [(ngModel)]="orderService.formData.customerid" class="form-control"
+        [class.is-invalid]="!isValid && orderService.formData.customerid==0">
+          <option value="">-Select-</option>
+          <option *ngFor="let item of customerList" value="{{item.customerid}}">{{item.name}}</option>
         </select>
       </div>
     </div>
@@ -44,7 +45,12 @@
       </div>
     </div>
   </div>
+
+
+
   <!-- order items table-->
+
+  
   <table class="table table-borderless">
     <thead class="thead-light">
       <th>Food</th>
@@ -74,6 +80,8 @@
       </tr>
     </tbody>
   </table>
+
+
   <div class="form-group">
     <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
     <a class="btn btn-outline-dark ml-1" routerLink="/orders"><i class="fa fa-table"></i> View Orders</a>
