@@ -1,4 +1,4 @@
-//this is use for employee type 
+//this API is used for store the item
 
 const express = require ('express');
 const itemRoute = express.Router();
@@ -10,7 +10,7 @@ const knex = require('knex')(config.getDbDetails);
 
 
 itemRoute.get('/',(req,res)=>{
-    res.json("Employee Api is work properly");
+    res.json("Item Api is work properly");
 });
 
 
@@ -19,7 +19,7 @@ itemRoute.post('/', function(req, res) {
 
     const { name, price }=req.body;
 
-    req.body.EnteredDate = today;
+   
     knex.transaction(trx => {
         trx.insert(req.body).returning('*').into('item').then(function(data) {
             res.json(data);

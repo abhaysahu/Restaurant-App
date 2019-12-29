@@ -1,4 +1,4 @@
-//this API is use by Admin, he can add the videos on tutorial and update the video also
+//this API is for store the detail of customer
 
 const express = require ('express');
 const customerRoute = express.Router();
@@ -8,7 +8,7 @@ const knex = require('knex')(config.getDbDetails);
 
 
 customerRoute.get('/',(req,res)=>{
-    res.json("coursePost Api is work properly");
+    res.json("Customer Api is work properly");
 });
 
 

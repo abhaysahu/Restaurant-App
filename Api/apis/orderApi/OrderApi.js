@@ -1,4 +1,4 @@
-//this is use for employee type 
+//this API is used for order
 
 const express = require ('express');
 const ordersRoute = express.Router();
@@ -10,7 +10,7 @@ const knex = require('knex')(config.getDbDetails);
 
 
 ordersRoute.get('/',(req,res)=>{
-    res.json("Employee Api is work properly");
+    res.json("Order Api is work properly");
 });
 
 
@@ -70,9 +70,9 @@ ordersRoute.post('/update/:id', function(req,res) {
 
 ordersRoute.post('/delete/:orderId', function(req, res) {
 
-    const { itemid } =req.body;
+    const { orderid } =req.body;
 
-    knex.raw(`delete from orders where itemid='${req.params.orderId}';`)
+    knex.raw(`delete from orders where orderid='${req.params.orderId}';`)
     .then(function(data) {
         
         res.json({messages: "record is delete successfully"})

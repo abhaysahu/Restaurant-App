@@ -5,6 +5,7 @@ const apiRoute = express.Router();
 const itemRoute=require('./ItemApi/ItemApi');
 const customerRoute=require('./CustomerApi/CustomerApi');
 const orderRoute=require('./orderApi/OrderApi');
+const ordersItemsRoute=require('./orderitems/orderitems');
 
 
 
@@ -12,7 +13,7 @@ const orderRoute=require('./orderApi/OrderApi');
 apiRoute.use('/item', itemRoute);
 apiRoute.use('/customer', customerRoute);
 apiRoute.use('/order', orderRoute);
-
+apiRoute.use('/ordersItem', ordersItemsRoute);
 
 
 
