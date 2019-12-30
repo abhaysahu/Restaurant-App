@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,8 +25,11 @@ import { CustomerService } from './shared/customer.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
+  entryComponents:[OrderItemsComponent],
   providers: [OrderService, ItemService, CustomerService],
   bootstrap: [AppComponent]
 })

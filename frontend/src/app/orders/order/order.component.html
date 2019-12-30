@@ -62,6 +62,7 @@
       </th>
     </thead>
     <tbody>
+      
       <tr *ngIf="orderService.orderitems.length==0" [class.text-danger]="!isValid && orderService.orderitems.length==0">
         <td class="font-italic text-center" colspan="5">
           No food item selected for this order.
