@@ -14,6 +14,7 @@ import { OrderItemsComponent } from './orders/order-items/order-items.component'
 import { OrderService } from './shared/order.service';
 import { ItemService } from './shared/item.service';
 import { CustomerService } from './shared/customer.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CustomerService } from './shared/customer.service';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   entryComponents:[OrderItemsComponent],
   providers: [OrderService, ItemService, CustomerService],
