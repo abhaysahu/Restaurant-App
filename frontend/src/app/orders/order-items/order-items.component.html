@@ -9,6 +9,7 @@
     <select name="itemid" #itemid="ngModel" [(ngModel)]="formData.itemid" class="form-control" (change)="updatePrice($event.target)"
     [class.is-invalid]="!isValid && formData.itemid==0">
       <option value="0">-Select-</option>
+      
       <option *ngFor="let item of itemList" value="{{item.itemid}}">{{item.name}}</option>
     </select>
   </div>

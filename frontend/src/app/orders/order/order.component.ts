@@ -3,6 +3,8 @@ import { OrderService } from 'src/app/shared/order.service';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrderItemsComponent } from '../order-items/order-items.component';
+import { CustomerService } from 'src/app/shared/customer.service';
+import { Customer } from 'src/app/shared/customer.model';
 
 @Component({
   selector: 'app-order',
@@ -11,14 +13,25 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 })
 export class OrderComponent implements OnInit {
 
+  customerList: Customer[]
+
+
+
   constructor(private orderService: OrderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private customerService: CustomerService
  
-    ) { }
+    ) { 
+      this.customerService.getItem().then(res => {
+        this.customerList = res as Customer[]
+        console.log(this.customerList)
+      })
+    }
 
 
 
   ngOnInit() {
+    this.customerService.getItem().then(res => this.customerList = res as Customer[])
     this.resetForm();
   }
 

@@ -48,6 +48,7 @@
 
 
 
+ 
   <!-- order items table-->
 
   
@@ -88,3 +89,14 @@
     <a class="btn btn-outline-dark ml-1" routerLink="/orders"><i class="fa fa-table"></i> View Orders</a>
   </div>
 </form>
+
+
+
+
+<h1>Selecting object</h1>
+<select type="number" [(ngModel)]="selectedLevel">
+  <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
+</select>
+{{selectedLevel | json}}
+
+
