@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrderItemsComponent } from '../order-items/order-items.component';
 import { CustomerService } from 'src/app/shared/customer.service';
 import { Customer } from 'src/app/shared/customer.model';
+import { Order } from 'src/app/shared/order.model';
 
 @Component({
   selector: 'app-order',
@@ -12,6 +13,9 @@ import { Customer } from 'src/app/shared/customer.model';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+
+
+  formData:Order[]
 
   customerList: Customer[]
 

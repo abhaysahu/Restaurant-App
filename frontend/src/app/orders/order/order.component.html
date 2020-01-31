@@ -64,7 +64,7 @@
     </thead>
     <tbody>
       
-      <tr *ngIf="orderService.orderitems.length==0" [class.text-danger]="!isValid && orderService.orderitems.length==0">
+      <tr *ngIf="orderService.orderItems" [class.text-danger]="!isValid && orderService.orderitems">
         <td class="font-italic text-center" colspan="5">
           No food item selected for this order.
         </td>
@@ -91,12 +91,5 @@
 </form>
 
 
-
-
-<h1>Selecting object</h1>
-<select type="number" [(ngModel)]="selectedLevel">
-  <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
-</select>
-{{selectedLevel | json}}
 
 
