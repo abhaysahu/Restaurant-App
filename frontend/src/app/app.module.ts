@@ -32,7 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   entryComponents:[OrderItemsComponent],
+
   providers: [OrderService, ItemService, CustomerService],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

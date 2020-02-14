@@ -3,4 +3,7 @@ export class OrderItem {
     orderid: number;
     itemid: number;
     quantity: number; 
+    itemname: string;
+    price: number;
+    total: number;
 }

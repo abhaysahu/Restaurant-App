@@ -16,7 +16,6 @@ export class OrderComponent implements OnInit {
 
 
   formData:Order[]
-
   customerList: Customer[]
 
 
@@ -26,10 +25,7 @@ export class OrderComponent implements OnInit {
     private customerService: CustomerService
  
     ) { 
-      this.customerService.getItem().then(res => {
-        this.customerList = res as Customer[]
-        console.log(this.customerList)
-      })
+     
     }
 
 
@@ -57,6 +53,7 @@ export class OrderComponent implements OnInit {
 
   AddOrEditOrderItem(orderItemIndex, orderid)
   {
+    console.log(this.orderService.orderItems)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;

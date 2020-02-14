@@ -32,6 +32,7 @@
           <option value="Card">Card</option>
         </select>
       </div>
+       
 
       <div class="form-group">
         <label>Grand Total</label>
@@ -44,7 +45,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 
 
 
@@ -64,13 +65,13 @@
     </thead>
     <tbody>
       
-      <tr *ngIf="orderService.orderItems" [class.text-danger]="!isValid && orderService.orderitems">
+      <tr *ngIf="!orderService.orderItems[0]" [class.text-danger]="!isValid && orderService.orderitems">
         <td class="font-italic text-center" colspan="5">
           No food item selected for this order.
         </td>
       </tr>
 
-      <tr *ngFor="let item of orderService.orderitems;let i=index;">
+      <tr *ngFor="let item of orderService.orderItems;let i=index;">
         <td>{{item.itemname}}</td>
         <td>{{item.price}}</td>
         <td>{{item.quantity}}</td>
