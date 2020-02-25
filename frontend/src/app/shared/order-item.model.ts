@@ -1,5 +1,6 @@
 export class OrderItem {
-    orderitemid: number;
+
+    //orderitemid: number;
     orderid: number;
     itemid: number;
     quantity: number; 

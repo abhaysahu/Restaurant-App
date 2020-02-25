@@ -11,7 +11,7 @@ export class CustomerService {
 
 
   
-  getItem(){
+  getCustomer(){
     return this.http.get(environment.apiUrl+'/customer/allData').toPromise();
    }
 }

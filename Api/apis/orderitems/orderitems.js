@@ -19,14 +19,23 @@ ordersItemsRoute.post('/', function(req, res) {
 
     const { orderitemid, orderid, itemid, quantity }=req.body;
 
+    console.log(req.body);
 
-    knex.transaction(trx => {
-        trx.insert(req.body).returning('*').into('orderitems').then(function(data) {
-            res.json(data);
-        })
-        .then(trx.commit)
-        .catch(trx.rollback)
-    });
+    // let iteartions=(idealDetailes.length,usersDetailes.length);
+
+    // for(let x=0;x<(iteartions-1);x++)
+    // {
+
+    // }
+
+
+    // knex.transaction(trx => {
+    //     trx.insert(req.body).returning('*').into('orderitems').then(function(data) {
+    //         res.json(data);
+    //     })
+    //     .then(trx.commit)
+    //     .catch(trx.rollback)
+    // });
 
 });
 

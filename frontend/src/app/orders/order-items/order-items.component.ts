@@ -15,6 +15,7 @@ export class OrderItemsComponent implements OnInit {
 
   formData: OrderItem
   itemList: Item[];
+  isValid: boolean = true
 
 
 
@@ -32,19 +33,28 @@ export class OrderItemsComponent implements OnInit {
     this.itemService.getItem().then(res =>{
       this.itemList = res as Item[]
       console.log(this.itemList)
-
     })
 
+    if(this.data.orderItemIndex == null)
+    {
+      this.formData = {
+        orderitemid: null,
+        orderid: this.data.orderid,
+        itemid: 0,
+        itemname: '',
+        price: 0,
+        quantity: 0,
+        total: 0
+      }
 
-    this.formData = {
-      orderitemid: null,
-      orderid: this.data.orderid,
-      itemid: 0,
-      itemname: '',
-      price: 0,
-      quantity: 0,
-      total: 0
     }
+    else 
+    {
+      this.formData = Object.assign({},this.orderService.orderItems[this.data.orderItemIndex]);
+    }
+
+
+    
   }
 
   updatePrice(ctrl) {
@@ -68,10 +78,29 @@ export class OrderItemsComponent implements OnInit {
 
   onSubmit(form:NgForm)
   {
-    console.log(form)
-    this.orderService.orderItems.push(form.value);
-    console.log(this.orderService.orderItems.length)
-    this.dialogRef.close();
+    if(this.validateForm(form.value))
+    {
+      if(this.data.orderItemIndex == null)
+      this.orderService.orderItems.push(form.value);
+      else
+      this.orderService.orderItems[this.data.orderItemIndex] = form.value;
+      this.dialogRef.close();
+    }
+    
+  }
+
+
+  validateForm(formData:OrderItem) {
+    this.isValid = true;
+    if(formData.itemid==0)
+    {
+      this.isValid=false;
+    }
+    else if (formData.quantity==0)
+    {
+      this.isValid=false;
+    }
+    return this.isValid;
   }
 
 

@@ -15,9 +15,10 @@ import { Order } from 'src/app/shared/order.model';
 export class OrderComponent implements OnInit {
 
 
-  formData:Order[]
-  customerList: Customer[]
+  formData:Order[];
+  customerList: Customer[];
 
+  isValid:boolean = true;
 
 
   constructor(private orderService: OrderService,
@@ -31,8 +32,10 @@ export class OrderComponent implements OnInit {
 
 
   ngOnInit() {
-    this.customerService.getItem().then(res => this.customerList = res as Customer[])
     this.resetForm();
+
+    this.customerService.getCustomer().then(res => this.customerList = res as Customer[])
+    
   }
 
 
@@ -42,7 +45,7 @@ export class OrderComponent implements OnInit {
     if(form = null)
       form.resetForm();
     this.orderService.formData = {
-      orderid: null,
+      
       orderno: Math.floor(1000000+Math.random()*9000000).toString(),
       customerid:0,
       pmethod:'',
@@ -59,7 +62,66 @@ export class OrderComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width="50%";
     dialogConfig.data={orderItemIndex, orderid}
-    this.dialog.open(OrderItemsComponent, dialogConfig);
+    this.dialog.open(OrderItemsComponent, dialogConfig).afterClosed().subscribe(res =>{
+      this.updateGrandTotal();
+    });
+  }
+
+  onDeleteOrderItem(orderItemsID: number, i: number)
+  {
+    this.orderService.orderItems.splice(i,1);
+    this.updateGrandTotal();
+  }
+
+  updateGrandTotal()
+  {
+    this.orderService.formData.gtotal=this.orderService.orderItems.reduce((prev,curr)=>{
+      return prev+curr.total;
+    },0)
+
+    this.orderService.formData.gtotal = parseFloat((this.orderService.formData.gtotal).toFixed(2)); 
+  }
+
+  validateForm()
+  {
+    this.isValid = true;
+    if(this.orderService.formData.customerid==0)
+    {
+      this.isValid=false;
+    }
+      
+    else if (this.orderService.orderItems.length==0)
+    {
+      this.isValid=false;
+    }
+      
+    else
+      this.isValid=true;
+
+      return this.isValid
+  }
+
+  
+  onSubmit(form: NgForm)
+
+  {
+    if(this.validateForm())
+    {
+      console.log(form.value)
+      this.orderService.saveOrUpdateOrder().subscribe(res =>{
+       
+        console.log(res)
+        this.orderService.saveOrUpdateItem(res).subscribe(res =>{
+          console.log(res)
+        })
+
+        this.resetForm();
+      })
+
+     
+
+    }
+
   }
 
 }

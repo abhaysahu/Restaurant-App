@@ -1,6 +1,6 @@
 export class Order {
     
-    orderid: number;
+    //orderid: number;
     orderno: string;
     customerid: number;
     pmethod: string;
