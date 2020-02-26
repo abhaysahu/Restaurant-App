@@ -6,6 +6,8 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 import { CustomerService } from 'src/app/shared/customer.service';
 import { Customer } from 'src/app/shared/customer.model';
 import { Order } from 'src/app/shared/order.model';
+//import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -23,8 +25,9 @@ export class OrderComponent implements OnInit {
 
   constructor(private orderService: OrderService,
     private dialog: MatDialog,
-    private customerService: CustomerService
- 
+    private customerService: CustomerService,
+    //private toastr: ToastrService,
+    private router: Router
     ) { 
      
     }
@@ -109,13 +112,12 @@ export class OrderComponent implements OnInit {
     {
       console.log(form.value)
       this.orderService.saveOrUpdateOrder().subscribe(res =>{
-       
-        console.log(res)
         this.orderService.saveOrUpdateItem(res).subscribe(res =>{
           console.log(res)
         })
-
         this.resetForm();
+        //this.toastr.success('Submitted Successfully','Restaurent App.');
+        this.router.navigate(['/orders']);
       })
 
      

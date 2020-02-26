@@ -38,6 +38,11 @@ export class OrderService {
       return this.http.post(environment.apiUrl+'/ordersItem',bodys);
       
     }
+
+
+    getOrderList(){
+      return this.http.get(environment.apiUrl+'/order/allDetails').toPromise();
+     }
   
   
 }

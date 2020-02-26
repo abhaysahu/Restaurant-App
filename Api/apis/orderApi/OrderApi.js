@@ -39,6 +39,15 @@ ordersRoute.get('/allData', function(req, res) {
 
 
 
+ordersRoute.get('/allDetails', function(req, res) {
+
+    knex.raw(`select * from orders, customer where orders.customerid = customer.customerid;`).then(data=>{
+        res.json(data.rows)
+        console.log("yes")
+    })
+});
+
+
 ordersRoute.get('/data/:id', function(req, res) {
     knex.select('*').from('orders').where('orderid', '=', req.params.id).then(function(data) {
         res.json(data);

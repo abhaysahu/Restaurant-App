@@ -38,11 +38,11 @@ export class OrderItemsComponent implements OnInit {
     if(this.data.orderItemIndex == null)
     {
       this.formData = {
-        orderitemid: null,
+        
         orderid: this.data.orderid,
         itemid: 0,
         itemname: '',
-        price: 0,
+        price: 0, 
         quantity: 0,
         total: 0
       }
