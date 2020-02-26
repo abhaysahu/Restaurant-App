@@ -17,25 +17,41 @@ ordersItemsRoute.get('/',(req,res)=>{
 ordersItemsRoute.post('/', function(req, res) {
 
 
+    const data =[];
+  
+
+
     const { orderitemid, orderid, itemid, quantity }=req.body;
 
-    console.log(req.body);
+    console.log(req.body.orders[0])
 
-    // let iteartions=(idealDetailes.length,usersDetailes.length);
+    let iteartions=(req.body.OrderItems.length);
 
-    // for(let x=0;x<(iteartions-1);x++)
-    // {
+    console.log(iteartions)
 
-    // }
+    for(let x=0;x<(iteartions);x++)
+    {
+        
+        data.push({
+            "orderid": req.body.orders[0].orderid,
+            "itemid": req.body.OrderItems[x].itemid,
+            "quantity": req.body.OrderItems[x].quantity
+        })
+        
+    }
+
+            
+    knex.transaction(trx => {
+        trx.insert(data).returning('*').into('orderitems').then(function(data) {
+            res.json(data);
+            
+        })
+        .then(trx.commit)
+        .catch(trx.rollback)
+    });
 
 
-    // knex.transaction(trx => {
-    //     trx.insert(req.body).returning('*').into('orderitems').then(function(data) {
-    //         res.json(data);
-    //     })
-    //     .then(trx.commit)
-    //     .catch(trx.rollback)
-    // });
+    
 
 });
 
