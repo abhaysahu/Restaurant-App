@@ -3,7 +3,7 @@
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
     <input type="hidden"  name="orderitemid" #orderitemid="ngModel" [(ngModel)]="formData.orderitemid">
     <input type="hidden"  name="orderid" #orderid="ngModel" [(ngModel)]="formData.orderid">
-  <input type="hidden"  name="itemname" #itemname="ngModel" [(ngModel)]="formData.itemname">
+  <input type="hidden"  name="name" #name="ngModel" [(ngModel)]="formData.name">
   <div class="form-group">
     <label>Food Item</label>
     <select name="itemid" #itemid="ngModel" [(ngModel)]="formData.itemid" class="form-control" (change)="updatePrice($event.target)"

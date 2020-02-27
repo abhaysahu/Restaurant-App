@@ -7,7 +7,7 @@ import { CustomerService } from 'src/app/shared/customer.service';
 import { Customer } from 'src/app/shared/customer.model';
 import { Order } from 'src/app/shared/order.model';
 //import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -27,18 +27,32 @@ export class OrderComponent implements OnInit {
     private dialog: MatDialog,
     private customerService: CustomerService,
     //private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private currentRoute: ActivatedRoute
     ) { 
      
     }
 
-
-
   ngOnInit() {
-    this.resetForm();
 
-    this.customerService.getCustomer().then(res => this.customerList = res as Customer[])
+    let orderid = this.currentRoute.snapshot.paramMap.get('id');
+    if(orderid == null)
+    {
+      this.resetForm();
+    }
+    else
+    {
+      this.orderService.getOrderById(parseInt(orderid)).then(res => {
+        console.log(res)
+        this.orderService.formData = res[0].orders[0];
+        this.orderService.orderItems = res[0].orderItems
+        console.log(this.orderService.formData);
+        console.log(this.orderService.orderItems);
+      })
+    }
+
     
+    this.customerService.getCustomer().then(res => this.customerList = res as Customer[]);
   }
 
 

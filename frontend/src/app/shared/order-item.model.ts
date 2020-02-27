@@ -4,7 +4,7 @@ export class OrderItem {
     orderid: number;
     itemid: number;
     quantity: number; 
-    itemname: string;
+    name: string;
     price: number;
     total: number;
 }

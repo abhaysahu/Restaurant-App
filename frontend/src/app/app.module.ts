@@ -29,7 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule,
+    MatDialogModule, 
     HttpClientModule,
     //ToastrModule.forRoot() 
   ],

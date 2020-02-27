@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../shared/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -10,7 +11,11 @@ export class OrdersComponent implements OnInit {
 
   orderList;
 
-  constructor(private orderService: OrderService) { }
+  constructor(
+    private orderService: OrderService,
+    private router: Router
+              
+    ) { }
 
   ngOnInit() {
 
@@ -18,6 +23,12 @@ export class OrdersComponent implements OnInit {
       this.orderList = res
       console.log(this.orderList)
     })
+  }
+
+  openForEdit(orderid:number)
+  {
+    this.router.navigate(['/order/edit/' + orderid])
+
   }
 
 }

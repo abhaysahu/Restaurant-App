@@ -4,15 +4,19 @@
         <th>Customer</th>
         <th>P. Method</th>
         <th>G. Total</th>
-        <th></th>
+        <th>
+            <a class="btn btn-outline-success" routerLink="/order"><i class="fa fa-plus-square"></i> Create New</a>
+        </th>
     </thead>
     <tbody>
-        <tr *ngFor="let item of orderList">
-            <th>{{item.orderno}}</th>
-            <td>{{item.name}}</td>
-            <td>{{item.pmethod}}</td>
-            <td>{{item.gtotal}}</td>
-            <td></td>
+        <tr *ngFor="let item of orderList">   
+            <th (click)="openForEdit(item.orderid)">{{item.orderno}}</th>
+            <td (click)="openForEdit(item.orderid)">{{item.name}}</td>
+            <td (click)="openForEdit(item.orderid)">{{item.pmethod}}</td>
+            <td (click)="openForEdit(item.orderid)">{{item.gtotal}}</td>
+            <td>
+                <a class="btn text-danger" (click)="onOrderDelete(item.orderid)"><i class="fa fa-trash fa-lg"></i></a>
+            </td>
         </tr>
         
     </tbody>

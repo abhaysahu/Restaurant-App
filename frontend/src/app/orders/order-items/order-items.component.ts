@@ -41,7 +41,7 @@ export class OrderItemsComponent implements OnInit {
         
         orderid: this.data.orderid,
         itemid: 0,
-        itemname: '',
+        name: '',
         price: 0, 
         quantity: 0,
         total: 0
@@ -60,12 +60,12 @@ export class OrderItemsComponent implements OnInit {
   updatePrice(ctrl) {
     if(ctrl.selectedIndex==0) {
       this.formData.price = 0;
-      this.formData.itemname = '';
+      this.formData.name = '';
     }
 
     else {
       this.formData.price = this.itemList[ctrl.selectedIndex-1].price
-      this.formData.itemname = this.itemList[ctrl.selectedIndex-1].name
+      this.formData.name = this.itemList[ctrl.selectedIndex-1].name
     }
 
     this.updateTotal();

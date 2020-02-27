@@ -43,6 +43,12 @@ export class OrderService {
     getOrderList(){
       return this.http.get(environment.apiUrl+'/order/allDetails').toPromise();
      }
+
+
+
+     getOrderById(id:number){
+      return this.http.get(environment.apiUrl+'/ordersItem/allDetails/'+id).toPromise();
+     }
   
   
 }

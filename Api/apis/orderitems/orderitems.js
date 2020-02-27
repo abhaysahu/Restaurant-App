@@ -16,11 +16,8 @@ ordersItemsRoute.get('/',(req,res)=>{
 
 ordersItemsRoute.post('/', function(req, res) {
 
-
     const data =[];
   
-
-
     const { orderitemid, orderid, itemid, quantity }=req.body;
 
     console.log(req.body.orders[0])
@@ -56,11 +53,43 @@ ordersItemsRoute.post('/', function(req, res) {
 });
 
 
-ordersItemsRoute.get('/allData', function(req, res) {
-    knex.select('*').from('orderitems').then(function(data) {
+
+
+
+ordersItemsRoute.get('/allDetails/:id', function(req, res) {
+
+    const data = [];
+
+
+    knex.raw(`select * from orders, customer where orders.customerid = customer.customerid and orders.orderid='${req.params.id}';`).then(data1=>{
+       
+
+        knex.raw(`select 
+
+        orderitems.orderitemid,
+        orderitems.orderid,
+        orderitems.itemid,
+        orderitems.quantity,
+        item.name,
+        item.price,
+        (item.price*orderitems.quantity)total
+    
+    from orderitems, item where orderitems.itemid=item.itemid and orderitems.orderid='${req.params.id}';`).then(data2=>{
+        data.push({
+            "orders": data1.rows,
+            "orderItems": data2.rows
+            
+        })
+        console.log(data);
         res.json(data);
-    });
+    })
+        
+    })
 });
+
+
+
+
 
 
 
@@ -69,6 +98,9 @@ ordersItemsRoute.get('/data/:id', function(req, res) {
         res.json(data);
     });
 });
+
+
+
 
 
 
@@ -90,6 +122,9 @@ ordersItemsRoute.post('/update/:id', function(req,res) {
         .catch(trx.rollback)
     })
 });
+
+
+
 
 
 ordersItemsRoute.post('/delete/:orderId', function(req, res) {
