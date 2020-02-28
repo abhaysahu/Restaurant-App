@@ -49,7 +49,6 @@ ordersRoute.get('/allDetails', function(req, res) {
 
 
 
-
 ordersRoute.get('/allDetails/:id', function(req, res) {
 
     knex.raw(`select * from orders, customer where orders.customerid = customer.customerid and orders.orderid='${req.params.id}';`).then(data=>{
