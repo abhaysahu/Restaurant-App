@@ -47,9 +47,6 @@ ordersItemsRoute.post('/', function(req, res) {
         .catch(trx.rollback)
     });
 
-
-    
-
 });
 
 
@@ -133,8 +130,10 @@ ordersItemsRoute.post('/delete/:orderId', function(req, res) {
 
     knex.raw(`delete from orderitems where orderitemid='${req.params.orderId}';`)
     .then(function(data) {
+
+        res.json(data)
         
-        res.json({messages: "record is delete successfully"})
+        // res.json({messages: "record is delete successfully"})
     });
 });
 

@@ -49,6 +49,17 @@ export class OrderService {
      getOrderById(id:number){
       return this.http.get(environment.apiUrl+'/ordersItem/allDetails/'+id).toPromise();
      }
+
+     upDateDelete(orderid:number, orderItemId: number)
+     {
+       let orders = {
+         orderid: orderid,
+         orderItemId: orderItemId
+       }
+
+       console.log(orders);
+              
+     }
   
   
 }

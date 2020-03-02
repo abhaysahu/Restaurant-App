@@ -67,7 +67,7 @@ export class OrderComponent implements OnInit {
       customerid:0,
       pmethod:'',
       gtotal: 0,
-      DeletedOrderItemIDs: null
+      DeletedOrderItemIDs: ' '
     };
     this.orderService.orderItems=[];
   }
@@ -87,26 +87,45 @@ export class OrderComponent implements OnInit {
 
   onDeleteOrderItem(orderItemsID: number, i: number)
   {
+
+    let orderid = parseInt(this.currentRoute.snapshot.paramMap.get('id'));
+    
     console.log(orderItemsID)
     if(orderItemsID!=null)
     {
-      this.orderService.formData.DeletedOrderItemIDs += orderItemsID + ",";
-      console.log(this.orderService.formData.DeletedOrderItemIDs)
+      this.orderService.upDateDelete(orderid, orderItemsID)
+    }
+
+    else{
+      console.log("yes");
     }
       
 
-    
+
+    // ese uncomment krna hai
     // this.orderService.orderItems.splice(i,1);
     // this.updateGrandTotal();
   }
 
   updateGrandTotal()
   {
-    this.orderService.formData.gtotal=this.orderService.orderItems.reduce((prev,curr)=>{
-      return prev+curr.total;
-    },0)
+    let orderid = this.currentRoute.snapshot.paramMap.get('id');
+    if(orderid==null)
+    {
+      this.orderService.formData.gtotal=this.orderService.orderItems.reduce((prev,curr)=>{
+        return prev+curr.total;
+      },0)
+  
+      this.orderService.formData.gtotal = parseFloat((this.orderService.formData.gtotal).toFixed(2));
+    }
+    else
+    {
+      console.log(this.orderService.orderItems)
+      // this.orderService.formData.gtotal=this.orderService.formData.gtotal
+      console.log(this.orderService.formData.gtotal)
 
-    this.orderService.formData.gtotal = parseFloat((this.orderService.formData.gtotal).toFixed(2)); 
+    }
+     
   }
 
   validateForm()
