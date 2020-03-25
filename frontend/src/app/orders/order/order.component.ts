@@ -67,7 +67,6 @@ export class OrderComponent implements OnInit {
       customerid:0,
       pmethod:'',
       gtotal: 0,
-      DeletedOrderItemIDs: ' '
     };
     this.orderService.orderItems=[];
   }
@@ -98,13 +97,10 @@ export class OrderComponent implements OnInit {
 
     else{
       console.log("yes");
+    this.orderService.orderItems.splice(i,1);
+    this.updateGrandTotal();
     }
       
-
-
-    // ese uncomment krna hai
-    // this.orderService.orderItems.splice(i,1);
-    // this.updateGrandTotal();
   }
 
   updateGrandTotal()
@@ -121,7 +117,8 @@ export class OrderComponent implements OnInit {
     else
     {
       console.log(this.orderService.orderItems)
-      // this.orderService.formData.gtotal=this.orderService.formData.gtotal
+      let pre = this.orderService.orderItems.length
+      this.orderService.formData.gtotal=+(this.orderService.formData.gtotal) + this.orderService.orderItems[pre-1].total 
       console.log(this.orderService.formData.gtotal)
 
     }

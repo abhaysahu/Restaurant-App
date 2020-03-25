@@ -23,6 +23,8 @@ export class OrderService {
         ...this.formData,
       }
 
+      console.log(body)
+
       return this.http.post(environment.apiUrl+'/order',body);
     }
 
@@ -33,6 +35,7 @@ export class OrderService {
         orders: res,
         OrderItems: this.orderItems
       }
+      
       console.log(bodys)
 
       return this.http.post(environment.apiUrl+'/ordersItem',bodys);
