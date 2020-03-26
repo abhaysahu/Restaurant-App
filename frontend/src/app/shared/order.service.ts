@@ -17,7 +17,7 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
     
-    saveOrUpdateOrder()
+    saveOrder()
     {
       var body ={
         ...this.formData,
@@ -29,7 +29,7 @@ export class OrderService {
     }
 
 
-    saveOrUpdateItem(res)
+    saveItem(res)
     {
       var bodys = {
         orders: res,

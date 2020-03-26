@@ -148,21 +148,43 @@ export class OrderComponent implements OnInit {
   onSubmit(form: NgForm)
 
   {
-    if(this.validateForm())
+    let orderid = this.currentRoute.snapshot.paramMap.get('id');
+
+    if(orderid==null){
+
+      if(this.validateForm())
     {
       console.log(form.value)
-      this.orderService.saveOrUpdateOrder().subscribe(res =>{
-        this.orderService.saveOrUpdateItem(res).subscribe(res =>{
+      this.orderService.saveOrder().subscribe(res =>{
+        this.orderService.saveItem(res).subscribe(res =>{
           console.log(res)
         })
         this.resetForm();
         //this.toastr.success('Submitted Successfully','Restaurent App.');
         this.router.navigate(['/orders']);
       })
-
-     
+    }
 
     }
+
+    else
+    {
+      if(this.validateForm())
+      {
+        console.log(form.value)
+        this.orderService.saveOrder().subscribe(res =>{
+          this.orderService.saveItem(res).subscribe(res =>{
+            console.log(res)
+          })
+          this.resetForm();
+          //this.toastr.success('Submitted Successfully','Restaurent App.');
+          this.router.navigate(['/orders']);
+        })
+      }
+
+    }
+
+    
 
   }
 

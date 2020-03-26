@@ -19,6 +19,8 @@ ordersRoute.post('/', function(req, res) {
 
     const { orderid, orderno, customerid, pmethod, gtotal }=req.body;
 
+    
+
 
     knex.transaction(trx => {
         trx.insert(req.body).returning('*').into('orders').then(function(data) {
