@@ -42,6 +42,32 @@ export class OrderService {
       
     }
 
+    upDateOrder(id)
+    {
+      var body ={
+        ...this.formData,
+      }
+
+      console.log(body)
+
+      return this.http.post(environment.apiUrl+'/order//update/'+id,body);
+    }
+
+
+    upDateItem(res)
+    {
+      var bodys = {
+        orders: res,
+        OrderItems: this.orderItems
+      }
+      
+      console.log(bodys)
+
+      return this.http.post(environment.apiUrl+'/ordersItem',bodys);
+      
+    }
+
+
 
     getOrderList(){
       return this.http.get(environment.apiUrl+'/order/allDetails').toPromise();
@@ -49,7 +75,8 @@ export class OrderService {
 
 
 
-     getOrderById(id:number){
+     getOrderById(id:number)
+     {
       return this.http.get(environment.apiUrl+'/ordersItem/allDetails/'+id).toPromise();
      }
 

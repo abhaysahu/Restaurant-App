@@ -116,10 +116,17 @@ export class OrderComponent implements OnInit {
     }
     else
     {
-      console.log(this.orderService.orderItems)
-      let pre = this.orderService.orderItems.length
-      this.orderService.formData.gtotal=+(this.orderService.formData.gtotal) + this.orderService.orderItems[pre-1].total 
-      console.log(this.orderService.formData.gtotal)
+      this.orderService.formData.gtotal=this.orderService.orderItems.reduce((prev,curr)=>{
+        console.log(prev)
+        return prev+curr.total;
+      },0)
+  
+      this.orderService.formData.gtotal = (this.orderService.formData.gtotal);
+      //console.log(this.orderService.formData.gtotal)
+      // console.log(this.orderService.orderItems)
+      // let pre = this.orderService.orderItems.length
+      // this.orderService.formData.gtotal=+(this.orderService.formData.gtotal) + this.orderService.orderItems[pre-1].total 
+      // console.log(this.orderService.formData.gtotal)
 
     }
      
@@ -172,8 +179,8 @@ export class OrderComponent implements OnInit {
       if(this.validateForm())
       {
         console.log(form.value)
-        this.orderService.saveOrder().subscribe(res =>{
-          this.orderService.saveItem(res).subscribe(res =>{
+        this.orderService.upDateOrder(orderid).subscribe(res =>{
+          this.orderService.upDateItem(res).subscribe(res =>{
             console.log(res)
           })
           this.resetForm();

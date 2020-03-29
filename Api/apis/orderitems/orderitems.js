@@ -105,19 +105,36 @@ ordersItemsRoute.post('/update/:id', function(req,res) {
 
     const { orderitemid, orderid, itemid, quantity }=req.body;
 
-    knex.transaction(trx=>{
+    let iteartions=(req.body.OrderItems.length);
 
-        trx.update({
-            'orderid': orderid,
-            'itemid': itemid,
-            'quantity': quantity
+    for(let x=0;x<(iteartions);x++)
+    {
+        console.log(req.body.orderitemid[x].orderid)
 
-        }).where('orderitemid', '=', req.params.id).into('orderitems').returning('*').then(data=>{
-            res.json(data);
-        })
-        .then(trx.commit)
-        .catch(trx.rollback)
-    })
+        // if(req.body.orderid=null)
+        
+        // data.push({
+        //     "orderid": req.body.orders[0].orderid,
+        //     "itemid": req.body.OrderItems[x].itemid,
+        //     "quantity": req.body.OrderItems[x].quantity
+        // })
+        
+    }
+
+
+    // knex.transaction(trx=>{
+
+    //     trx.update({
+    //         'orderid': orderid,
+    //         'itemid': itemid,
+    //         'quantity': quantity
+
+    //     }).where('orderitemid', '=', req.params.id).into('orderitems').returning('*').then(data=>{
+    //         res.json(data);
+    //     })
+    //     .then(trx.commit)
+    //     .catch(trx.rollback)
+    // })
 });
 
 
