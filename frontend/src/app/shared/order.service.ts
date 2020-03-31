@@ -50,7 +50,7 @@ export class OrderService {
 
       console.log(body)
 
-      return this.http.post(environment.apiUrl+'/order//update/'+id,body);
+      return this.http.post(environment.apiUrl+'/order/update/'+id,body);
     }
 
 
@@ -62,8 +62,10 @@ export class OrderService {
       }
       
       console.log(bodys)
+      let id = bodys.orders[0].orderid
+      console.log(id);
 
-      return this.http.post(environment.apiUrl+'/ordersItem',bodys);
+      return this.http.post(environment.apiUrl+'/ordersItem/update/'+id,bodys);
       
     }
 
@@ -80,14 +82,9 @@ export class OrderService {
       return this.http.get(environment.apiUrl+'/ordersItem/allDetails/'+id).toPromise();
      }
 
-     upDateDelete(orderid:number, orderItemId: number)
+     upDateDelete(orderItemId: number)
      {
-       let orders = {
-         orderid: orderid,
-         orderItemId: orderItemId
-       }
-
-       console.log(orders);
+       console.log(orderItemId);
               
      }
   

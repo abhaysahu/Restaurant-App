@@ -103,38 +103,56 @@ ordersItemsRoute.get('/data/:id', function(req, res) {
 
 ordersItemsRoute.post('/update/:id', function(req,res) {
 
+
+    const data =[];
+
     const { orderitemid, orderid, itemid, quantity }=req.body;
 
     let iteartions=(req.body.OrderItems.length);
 
     for(let x=0;x<(iteartions);x++)
     {
-        console.log(req.body.orderitemid[x].orderid)
+       
+        let id = req.body.OrderItems[x].orderitemid
+        if(id)
+        {
+            knex.transaction(trx=>{
 
-        // if(req.body.orderid=null)
+                trx.update({
+                    'itemid': req.body.OrderItems[x].itemid,
+                    'quantity': req.body.OrderItems[x].quantity
         
-        // data.push({
-        //     "orderid": req.body.orders[0].orderid,
-        //     "itemid": req.body.OrderItems[x].itemid,
-        //     "quantity": req.body.OrderItems[x].quantity
-        // })
-        
+                }).where('orderitemid', '=', id).into('orderitems').returning('*')
+                .then(trx.commit)
+                .catch(trx.rollback)
+            })
+        }
+
+        else
+        {
+            data.push({
+                "orderid": req.body.orders[0].orderid,
+                "itemid": req.body.OrderItems[x].itemid,
+                "quantity": req.body.OrderItems[x].quantity
+            })
+        }
     }
 
+    console.log(data)
 
-    // knex.transaction(trx=>{
+    knex.transaction(trx => {
+        trx.insert(data).returning('*').into('orderitems').then(function(data) {
+            res.json(data);
+            
+        })
+        .then(trx.commit)
+        .catch(trx.rollback)
+    });
 
-    //     trx.update({
-    //         'orderid': orderid,
-    //         'itemid': itemid,
-    //         'quantity': quantity
 
-    //     }).where('orderitemid', '=', req.params.id).into('orderitems').returning('*').then(data=>{
-    //         res.json(data);
-    //     })
-    //     .then(trx.commit)
-    //     .catch(trx.rollback)
-    // })
+
+
+   
 });
 
 

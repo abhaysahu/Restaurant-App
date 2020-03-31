@@ -84,15 +84,26 @@ export class OrderComponent implements OnInit {
     });
   }
 
+
   onDeleteOrderItem(orderItemsID: number, i: number)
   {
 
     let orderid = parseInt(this.currentRoute.snapshot.paramMap.get('id'));
     
-    console.log(orderItemsID)
-    if(orderItemsID!=null)
+    if(orderid!=null)
     {
-      this.orderService.upDateDelete(orderid, orderItemsID)
+      this.orderService.orderItems.splice(i,1);
+      if(orderItemsID)
+      {
+        this.orderService.upDateDelete(orderItemsID)
+      }
+      else
+      {
+        console.log("no");
+      }
+      
+      
+      
     }
 
     else{
@@ -116,21 +127,19 @@ export class OrderComponent implements OnInit {
     }
     else
     {
+      console.log(this.orderService.orderItems)
       this.orderService.formData.gtotal=this.orderService.orderItems.reduce((prev,curr)=>{
-        console.log(prev)
-        return prev+curr.total;
+        console.log(prev+5)
+        return prev+(+curr.total);
       },0)
   
-      this.orderService.formData.gtotal = (this.orderService.formData.gtotal);
-      //console.log(this.orderService.formData.gtotal)
-      // console.log(this.orderService.orderItems)
-      // let pre = this.orderService.orderItems.length
-      // this.orderService.formData.gtotal=+(this.orderService.formData.gtotal) + this.orderService.orderItems[pre-1].total 
-      // console.log(this.orderService.formData.gtotal)
-
+      this.orderService.formData.gtotal = parseFloat((this.orderService.formData.gtotal).toFixed(2));
+      console.log(this.orderService.formData.gtotal)
     }
      
   }
+
+
 
   validateForm()
   {
@@ -150,6 +159,8 @@ export class OrderComponent implements OnInit {
 
       return this.isValid
   }
+
+
 
   
   onSubmit(form: NgForm)
@@ -180,12 +191,13 @@ export class OrderComponent implements OnInit {
       {
         console.log(form.value)
         this.orderService.upDateOrder(orderid).subscribe(res =>{
+          //this.orderService.upDateItem(res)
           this.orderService.upDateItem(res).subscribe(res =>{
             console.log(res)
           })
-          this.resetForm();
-          //this.toastr.success('Submitted Successfully','Restaurent App.');
-          this.router.navigate(['/orders']);
+          // this.resetForm();
+          
+          //this.router.navigate(['/orders']);
         })
       }
 
