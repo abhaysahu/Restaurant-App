@@ -9,6 +9,14 @@ import { Order } from 'src/app/shared/order.model';
 //import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
+export class Delete{
+  delete: number
+}
+
+
+
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -20,6 +28,9 @@ export class OrderComponent implements OnInit {
   formData:Order[];
   customerList: Customer[];
 
+  Delete : Delete[] = [];
+  
+
   isValid:boolean = true;
 
 
@@ -30,6 +41,8 @@ export class OrderComponent implements OnInit {
     private router: Router,
     private currentRoute: ActivatedRoute
     ) { 
+
+      
      
     }
 
@@ -95,16 +108,24 @@ export class OrderComponent implements OnInit {
       this.orderService.orderItems.splice(i,1);
       if(orderItemsID)
       {
-        this.orderService.upDateDelete(orderItemsID)
+        console.log(orderItemsID)
+
+        this.Delete.push({
+          "delete":orderItemsID
+        })
+
+        console.log(this.Delete)
+
+
+        //we need to uncomment it 
+        // this.orderService.upDateDelete(orderItemsID).then(data=>{
+        //   console.log(data)
+        // })
       }
-      else
-      {
-        console.log("no");
-      }
-      
-      
-      
+
+      this.updateGrandTotal()
     }
+
 
     else{
       console.log("yes");
@@ -192,19 +213,16 @@ export class OrderComponent implements OnInit {
         console.log(form.value)
         this.orderService.upDateOrder(orderid).subscribe(res =>{
           //this.orderService.upDateItem(res)
-          this.orderService.upDateItem(res).subscribe(res =>{
+          this.orderService.upDateItem(res,this.Delete).subscribe(res =>{
             console.log(res)
           })
-          // this.resetForm();
+          this.resetForm();
           
-          //this.router.navigate(['/orders']);
+          this.router.navigate(['/orders']);
         })
       }
 
     }
-
-    
-
   }
 
 }

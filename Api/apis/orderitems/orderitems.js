@@ -149,9 +149,12 @@ ordersItemsRoute.post('/update/:id', function(req,res) {
         .catch(trx.rollback)
     });
 
+    let iteartions=(req.body.Delete.length);
+    for(let x=0;x<(iteartions);x++)
+    {
+        let id = req.body.Delete[X].delete
 
-
-
+    }
    
 });
 
@@ -159,11 +162,11 @@ ordersItemsRoute.post('/update/:id', function(req,res) {
 
 
 
-ordersItemsRoute.post('/delete/:orderId', function(req, res) {
+ordersItemsRoute.delete('/delete/:orderItemId', function(req, res) {
 
     const { itemid } =req.body;
 
-    knex.raw(`delete from orderitems where orderitemid='${req.params.orderId}';`)
+    knex.raw(`delete from orderitems where orderitemid='${req.params.orderItemId}';`)
     .then(function(data) {
 
         res.json(data)

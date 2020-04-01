@@ -54,16 +54,17 @@ export class OrderService {
     }
 
 
-    upDateItem(res)
+    upDateItem(res,Delete)
     {
       var bodys = {
         orders: res,
-        OrderItems: this.orderItems
+        OrderItems: this.orderItems,
+        Delete
       }
-      
+
       console.log(bodys)
+      
       let id = bodys.orders[0].orderid
-      console.log(id);
 
       return this.http.post(environment.apiUrl+'/ordersItem/update/'+id,bodys);
       
@@ -84,7 +85,7 @@ export class OrderService {
 
      upDateDelete(orderItemId: number)
      {
-       console.log(orderItemId);
+       return this.http.delete(environment.apiUrl+'/ordersItem/delete/'+orderItemId).toPromise();
               
      }
   
