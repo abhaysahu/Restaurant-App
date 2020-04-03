@@ -142,19 +142,24 @@ ordersItemsRoute.post('/update/:id', function(req,res) {
 
     knex.transaction(trx => {
         trx.insert(data).returning('*').into('orderitems').then(function(data) {
-            res.json(data);
+            //res.json(data);
             
         })
         .then(trx.commit)
         .catch(trx.rollback)
     });
 
-    let iteartions=(req.body.Delete.length);
+    iteartions=(req.body.Delete.length);
+    console.log(iteartions)
     for(let x=0;x<(iteartions);x++)
     {
-        let id = req.body.Delete[X].delete
-
+        let id = req.body.Delete[x].delete
+        console.log(id)
+        knex.raw(`delete from orderitems where orderitemid=${id};`).then(function(data) {
+        })
     }
+
+    res.json({messages: "your record is successfully update"})
    
 });
 

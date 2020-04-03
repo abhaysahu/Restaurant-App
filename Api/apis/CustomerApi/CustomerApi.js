@@ -31,7 +31,7 @@ customerRoute.post('/', function(req, res) {
 
 
 customerRoute.get('/allData', function(req, res) {
-    knex.select('*').from('customer').then(function(data) {
+    knex.select('*').from('customer').orderBy('name').then(function(data) {
         res.json(data);
     });
 });

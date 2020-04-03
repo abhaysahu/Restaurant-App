@@ -32,7 +32,7 @@ itemRoute.post('/', function(req, res) {
 
 
 itemRoute.get('/allData', function(req, res) {
-    knex.select('*').from('item').then(function(data) {
+    knex.select('*').from('item').orderBy('name').then(function(data) {
         res.json(data);
     });
 });
